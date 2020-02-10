@@ -46,9 +46,19 @@ func server(args []string) {
     if err != nil {
         l.Fatal(err)
     }
-    log.Println("Server started")
-    http.ListenAndServe(":80", h)
-
+    if !*sslFlag {
+	    log.Println("Server starting (plain-text HTTP)")
+	    err = http.ListenAndServe(":80", h)
+	    if err != nil {
+		    l.Fatal(err)
+	    }
+    } else {
+	    log.Println("Server started (SSL)")
+	    err = http.ListenAndServeTLS(":443", *certPath, *privkeyPath, h)
+	    if err != nil {
+		    l.Fatal(err)
+	    }
+    }
 }
 
 type urlExpandHandler struct {
