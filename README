@@ -23,6 +23,9 @@ Usage
 # start the server
 ./dsus server
 
+# start the server with HTTPS
+./dsus server -ssl -cert /etc/letsencrypt/live/your.domain/fullchain.pem -privkey /etc/letsencrypt/live/your.domain/privkey.pem
+
 # all options
 ./dsus server --help
 ./dsus db --help
