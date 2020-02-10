@@ -53,12 +53,23 @@ func server(args []string) {
 		    l.Fatal(err)
 	    }
     } else {
-	    log.Println("Server started (SSL)")
+	    log.Println("Server starting (SSL)")
+	    go func() {
+		    err := http.ListenAndServe(":80", http.HandlerFunc(redirectTLS))
+		    if err != nil {
+			    l.Fatal(err)
+		    }
+	    }()
+	    log.Println("Redirecting HTTP traffic to SSL")
 	    err = http.ListenAndServeTLS(":443", *certPath, *privkeyPath, h)
 	    if err != nil {
 		    l.Fatal(err)
 	    }
     }
+}
+
+func redirectTLS(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "https://" + r.Host + r.RequestURI, 307)
 }
 
 type urlExpandHandler struct {
