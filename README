@@ -1,0 +1,29 @@
+dsus - Damn simple URL shortener
+
+Build
+=====
+
+Requires sqlite3. Download and run `go build`.
+
+Usage
+=====
+
+# list all forwarding entries
+./dsus db -l
+
+# add an entry and list
+./dsus db -l -n -k "github" -u "https://github.com"
+
+# remove an entry
+./dsus db -r -k "github"
+
+# update an entry
+./dsus db -m -k "github" -u "https://help.github.com"
+
+# start the server
+./dsus server
+
+# all options
+./dsus server --help
+./dsus db --help
+
