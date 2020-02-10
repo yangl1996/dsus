@@ -13,7 +13,7 @@ import (
 func db(args []string) {
     l := log.New(os.Stderr, "", 0)
     cmd := flag.NewFlagSet("db", flag.ExitOnError)
-    dbPath := cmd.String("db", "", "path to the database")
+    dbPath := cmd.String("db", "dsus.sqlite", "path to the database")
     listFlag := cmd.Bool("l", false, "list entries")
     insertFlag := cmd.Bool("n", false, "insert a new entry")
     delFlag := cmd.Bool("r", false, "delete an entry")
